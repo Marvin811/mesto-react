@@ -3,26 +3,30 @@ import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
 import {useState} from "react";
-import ImagePopup from "./ImagePopup";
 import Api from "../utils/Api";
 import {CurrentUserContext} from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
+import ImagePopup from "./ImagePopup";
+import DeleteCardPopup from "./DeleteCardPopup";
 
 function App() {
     const [currentUser, setCurrentUser] = useState({});
     const [currentCard, setCurrentCard] = useState([]);
+    const [cardToDelete, setCardToDelete] = useState()
 
     const [selectorCard, setSelectorCard] = useState(null)
 
     const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
     const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
     const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+    const [isDeleteCardPopupOpen, setIsDeleteCardPopupOpen] = useState(false);
 
     const handleEditAvatarClick = () => setIsEditAvatarPopupOpen(true);
     const handleEditProfileClick = () => setIsEditProfilePopupOpen(true);
     const handleAddPlaceClick = () => setIsAddPlacePopupOpen(true);
+
 
     const handleCardClick = (card) => setSelectorCard(card);
 
@@ -95,6 +99,10 @@ function App() {
 
         setIsAddPlacePopupOpen(false);
     }
+    const handleCardToDelete = (obj) => {
+        setIsDeleteCardPopupOpen(false)
+        setCardToDelete(obj)
+    }
 
 
     return (
@@ -116,29 +124,29 @@ function App() {
 
                 <EditProfilePopup
                     isOpen={isEditProfilePopupOpen}
-                    isClose={closeAllPopups}
+                    onClose={closeAllPopups}
                     onUpdateUser={handleUpdateUser}
                 />
 
                 <EditAvatarPopup
                     isOpen={isEditAvatarPopupOpen}
-                    isClose={closeAllPopups}
+                    onClose={closeAllPopups}
                     onUpdateAvatar={handleUpdateAvatar}
                 />
 
                 <AddPlacePopup
                     isOpen={isAddPlacePopupOpen}
-                    isClose={closeAllPopups}
+                    onClose={closeAllPopups}
                     onAddCard={handleAddPlaceSubmit}
                 />
 
+                <DeleteCardPopup
+                    isOpen={isDeleteCardPopupOpen}
+                    onclose={closeAllPopups}
+                    onDeleteCard={() => handleCardToDelete(cardToDelete)}
+                />
 
 
-                {/*<PopupWithForm*/}
-                {/*    name="delete-button"*/}
-                {/*    title='Вы уверены?'*/}
-                {/*    sumbit='Да'*/}
-                {/*/>*/}
                 <ImagePopup
                     card={selectorCard}
                     onClose={closeAllPopups}
