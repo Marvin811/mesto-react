@@ -35,6 +35,7 @@ function App() {
         setIsEditAvatarPopupOpen(false);
         setSelectorCard(false);
         setIsEditProfilePopupOpen(false);
+        setIsDeleteCardPopupOpen(false)
     }
 
     React.useEffect(() => {
@@ -99,9 +100,9 @@ function App() {
 
         setIsAddPlacePopupOpen(false);
     }
-    const handleCardToDelete = (obj) => {
-        setIsDeleteCardPopupOpen(false)
-        setCardToDelete(obj)
+    const handleCardToDelete = (card) => {
+        setIsDeleteCardPopupOpen(true)
+        setCardToDelete(card)
     }
 
 
@@ -117,7 +118,7 @@ function App() {
                         onCardClick={handleCardClick}
                         cards={currentCard}
                         onCardLike={handleCardLike}
-                        onCardDelete={handleCardDelete}
+                        onCardDelete={handleCardToDelete}
                     />
                     <Footer/>
                 </div>
@@ -142,8 +143,8 @@ function App() {
 
                 <DeleteCardPopup
                     isOpen={isDeleteCardPopupOpen}
-                    onclose={closeAllPopups}
-                    onDeleteCard={() => handleCardToDelete(cardToDelete)}
+                    onClose={closeAllPopups}
+                    onDeleteCard={() => handleCardDelete(cardToDelete)}
                 />
 
 
