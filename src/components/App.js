@@ -10,6 +10,10 @@ import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import ImagePopup from "./ImagePopup";
 import DeleteCardPopup from "./DeleteCardPopup";
+import {Route, Switch} from "react-router-dom";
+import Login from "./Login";
+import Register from "./Register";
+import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
     const [currentUser, setCurrentUser] = useState({});
@@ -111,15 +115,19 @@ function App() {
             <div className="page">
                 <div className="page__container">
                     <Header/>
-                    <Main
-                        onEditProfile={handleEditProfileClick}
-                        onAddPlace={handleAddPlaceClick}
-                        onEditAvatar={handleEditAvatarClick}
-                        onCardClick={handleCardClick}
-                        cards={currentCard}
-                        onCardLike={handleCardLike}
-                        onCardDelete={handleCardToDelete}
-                    />
+                    <Switch>
+                        <Route path='/sing-in' component={Login}/>
+                        <Route path='/sign-up' component={Register}/>
+                        <ProtectedRoute path='/' component={Main}
+                                        onEditProfile={handleEditProfileClick}
+                                        onAddPlace={handleAddPlaceClick}
+                                        onEditAvatar={handleEditAvatarClick}
+                                        onCardClick={handleCardClick}
+                                        cards={currentCard}
+                                        onCardLike={handleCardLike}
+                                        onCardDelete={handleCardToDelete}
+                        />
+                    </Switch>
                     <Footer/>
                 </div>
 
