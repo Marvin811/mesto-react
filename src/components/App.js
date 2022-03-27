@@ -18,6 +18,7 @@ import ProtectedRoute from "./ProtectedRoute";
 function App() {
     const [currentUser, setCurrentUser] = useState({});
     const [currentCard, setCurrentCard] = useState([]);
+    const [loggedIn, setLoggetIn] = useState(false)
     const [cardToDelete, setCardToDelete] = useState()
 
     const [selectorCard, setSelectorCard] = useState(null)
@@ -110,15 +111,16 @@ function App() {
     }
 
 
+
+
     return (
         <CurrentUserContext.Provider value={currentUser}>
             <div className="page">
                 <div className="page__container">
                     <Header/>
                     <Switch>
-                        <Route path='/sing-in' component={Login}/>
-                        <Route path='/sign-up' component={Register}/>
-                        <ProtectedRoute path='/' component={Main}
+                        <ProtectedRoute exact path='/'
+                                        component={Main}
                                         onEditProfile={handleEditProfileClick}
                                         onAddPlace={handleAddPlaceClick}
                                         onEditAvatar={handleEditAvatarClick}
@@ -127,6 +129,10 @@ function App() {
                                         onCardLike={handleCardLike}
                                         onCardDelete={handleCardToDelete}
                         />
+
+                        <Route path='/sign-in'><Login/></Route>
+                        <Route path='/sign-up'><Register/></Route>
+
                     </Switch>
                     <Footer/>
                 </div>
