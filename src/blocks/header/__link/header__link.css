@@ -4,8 +4,7 @@
     font-weight: 400;
     font-size: 18px;
     line-height: 22px;
-    /* identical to box height, or 122% */
-    text-align: right;
+    margin: 0;
     color: #FFFFFF;
     text-decoration: none;
     transition: opacity 0.5s;
